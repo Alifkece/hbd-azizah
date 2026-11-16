@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="id"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Happy Birthday Cintaku Nur Azizah!</title>
+    <link rel="stylesheet" href="style.css">
+    <noscript><style>.show-on-scroll{opacity:1 !important;transform:none !important}#main-content.hidden{display:flex !important}</style></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&amp;family=Outfit:wght@300;400;600&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <audio id="bg-music" loop="" preload="auto">
+        <source src="audio/honeybee.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-popup" class="music-popup">
+        <p class="now-playing-top">Now Playing</p>
+        <img src="img/music-cover.svg" alt="Album Cover" class="album-cover">
+        <div class="music-info">
+            <div class="song-title-wrapper">
+                <p class="song-title">honeybee!</p>
+            </div>
+            <p class="artist-name">olivia</p>
+        </div>
+        <button id="play-pause-btn" class="play-pause-btn" type="button" aria-label="Play" onclick="toggleMusic()">
+            <!-- SVG Pause Icon -->
+            <svg id="icon-pause" width="24" height="24" viewBox="0 0 24 24" fill="#5a4500" style="display: none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+            </svg>
+            <svg id="icon-play" width="24" height="24" viewBox="0 0 24 24" fill="#5a4500">
+                <path d="M8 5v14l11-7z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Tombol untuk memunculkan kembali pop up musik -->
+    <button id="show-music-btn" class="show-music-btn" onclick="showMusicPopup()">🎵</button>
+
+    <div class="stars"></div>
+
+    <div class="twinkling"></div>
+
+    <div id="flower-rain"></div>
+
+    <div id="flash-light"></div>
+
+    <!-- Mini Game Screen -->
+    <div id="mini-game-screen" style="display: none;">
+        <!-- Animated background particles -->
+        <div class="game-bg-particles"></div>
+
+        <div class="game-glass-panel">
+            <div class="game-title-wrapper">
+                <h2 class="aesthetic-font game-title-text">Mini Game!</h2>
+            </div>
+            <p class="game-subtitle">Tolong bantu anterin bouquetnya ke nailong<br><span class="game-subtitle-warn">⚠️
+                    Hindari monster &amp; jangan keluar rel!</span></p>
+
+            <div id="game-area">
+                <!-- SVG Rail Track - HORIZONTAL left to right -->
+                <svg id="game-svg" viewBox="0 0 500 250" preserveAspectRatio="none">
+                    <defs>
+                        <filter id="rail-glow">
+                            <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+                        </filter>
+                    </defs>
+
+                    <!-- Outer glow of rail -->
+                    <path id="rail-glow-path" d="M 15,125 C 60,30 120,30 165,125 C 210,220 270,220 315,125 C 360,30 420,30 485,125" fill="none" stroke="rgba(180,140,60,0.15)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"></path>
+
+                    <!-- Main rail (safe path) - winding S-curve horizontal -->
+                    <path id="safe-path" d="M 15,125 C 60,30 120,30 165,125 C 210,220 270,220 315,125 C 360,30 420,30 485,125" fill="none" stroke="#8B6914" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#rail-glow)"></path>
+
+                    <!-- Inner rail line (lighter) for railroad effect -->
+                    <path d="M 15,125 C 60,30 120,30 165,125 C 210,220 270,220 315,125 C 360,30 420,30 485,125" fill="none" stroke="#C4A23A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"></path>
+
+                    <!-- Center dashed line (rail ties) -->
+                    <path d="M 15,125 C 60,30 120,30 165,125 C 210,220 270,220 315,125 C 360,30 420,30 485,125" fill="none" stroke="#5a4500" stroke-width="2" stroke-dasharray="8,12" stroke-linecap="round"></path>
+
+                    <!-- Decorative rail ties (crossbars) along the path - vertical lines -->
+                    <g class="rail-ties" opacity="0.3">
+                        <line x1="15" y1="115" x2="15" y2="135" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="45" y1="75" x2="45" y2="95" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="75" y1="45" x2="75" y2="65" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="105" y1="35" x2="105" y2="55" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="135" y1="65" x2="135" y2="85" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="165" y1="115" x2="165" y2="135" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="195" y1="165" x2="195" y2="185" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="225" y1="200" x2="225" y2="220" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="255" y1="210" x2="255" y2="230" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="285" y1="185" x2="285" y2="205" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="315" y1="115" x2="315" y2="135" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="345" y1="65" x2="345" y2="85" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="375" y1="35" x2="375" y2="55" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="405" y1="35" x2="405" y2="55" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="435" y1="55" x2="435" y2="75" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="465" y1="95" x2="465" y2="115" stroke="#5a4500" stroke-width="2"></line>
+                        <line x1="485" y1="115" x2="485" y2="135" stroke="#5a4500" stroke-width="2"></line>
+                    </g>
+                </svg>
+
+                <!-- Track sparkle particles -->
+                <div class="track-sparkles"></div>
+
+                <!-- Pemain - Tongkang Kayu dengan Bouquet -->
+                <div id="player-obj">
+                    <span class="player-glow"></span>
+                    <div class="cart-body">
+                        <img src="img/bouquet.png" alt="Bouquet" class="cart-bouquet-img">
+                    </div>
+                    <div class="cart-base"></div>
+                    <div class="cart-wheel cart-wheel-l"></div>
+                    <div class="cart-wheel cart-wheel-r"></div>
+                </div>
+
+                <!-- Monster 1 & 2 -->
+                <div id="monster-1" class="monster"><span class="monster-danger-zone"></span>👾</div>
+                <div id="monster-2" class="monster"><span class="monster-danger-zone"></span>👾</div>
+
+                <!-- Garis Akhir (Dinosaurus) -->
+                <div id="finish-line">
+                    <span class="finish-pulse"></span>
+                    <img src="img/dino.png" alt="Dino" class="finish-img">
+                </div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="game-progress-bar">
+                <div class="game-progress-fill" id="game-progress-fill"></div>
+            </div>
+            <p class="game-hint-text">✨ Seret tongkang pelan-pelan di atas rel ke kanan ✨</p>
+        </div>
+    </div>
+
+    <!-- PIN Screen -->
+    <div id="pin-screen" style="display: flex;" class="active">
+        <div class="pin-container glass-panel">
+            <h2>Enter PIN</h2>
+            <p style="margin-bottom: 2px;">password nya tanggal sama bulan jadian kita yaa</p>
+            <p style="margin-top: 0; font-size: 0.5rem;"> (Awas aja kalau lupa !!)</p>
+            <input type="password" id="pin-input" maxlength="4" placeholder="****" inputmode="numeric" pattern="[0-9]*">
+        </div>
+    </div>
+
+    <!-- Pop-Up Notifikasi PIN (Centered) -->
+    <div id="pin-popup-overlay" class="pin-popup-overlay">
+        <div id="pin-popup-box" class="pin-popup-box">
+            <img id="pin-popup-img" src="img/cat-warning.png" alt="Warning Cat" class="pin-popup-img">
+            <div class="pin-popup-emoji" id="pin-popup-emoji"></div>
+            <p id="pin-popup-msg" class="pin-popup-msg"></p>
+            <button class="pin-popup-close" id="pin-popup-close">Iya iya 😤</button>
+        </div>
+    </div>
+
+    <div id="landing-page" style="display: none;">
+        <div class="bouquet-container" onclick="bukaKado()">
+            <img src="img/BouquetBunga.png" alt="BouquetBunga" class="bouquet-img">
+            <p class="click-text">nailong mau kasih bouqet ini buat kamu<br>(pencet nailong nya) </p>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden">
+
+        <section class="slide glass-panel show-on-scroll">
+            <h1 class="aesthetic-font fade-in-text">Happy Birthday,<br>My Everything</h1>
+            <p class="aesthetic-font fade-in-text" style="font-size: 1.3rem; color: #8a7200; margin-top: 10px; margin-bottom: 10px; letter-spacing: 2px;">-
+                Nur Azizah -</p>
+            <img src="img/foto-pacar.png" alt="Foto Pacar" class="birthday-photo fade-in-text">
+            <p class="typing-text">Hari ini adalah hari yang paling spesial karena di hari ini, semesta membawa kamu ke
+                dunia.</p>
+            <p class="typing-text">Selamat bertambah usia. Terima kasih karena sudah lahir dan tumbuh menjadi pribadi
+                sebaik, sehangat, dan sekuat dirimu sekarang.</p>
+
+            <div class="pulsating-heart">🤍</div>
+
+            <p class="scroll-hint">✨Scroll pelan-pelan ke bawah ya sayang..✨</p>
+        </section>
+
+        <section class="slide glass-panel show-on-scroll">
+            <h2 class="baby-pink-text" style="font-style: italic;">HAPPY BIRTHDAY, BIDADARI KUU!🫶🏻💗💗</h2>
+            <p class="fade-in-text">Nggak terasa ya, sekarang kamu sudah bertambah usia lagi. Rasanya aku ingin mengucapkan banyak sekali hal untuk kamu, bukan cuma sekadar selamat ulang tahun, tetapi juga semua doa dan harapan terbaik yang mungkin belum sempat aku sampaikan.
+
+Aku berharap kamu selalu menemukan kebahagiaan dalam hal-hal sederhana. Semoga setiap langkah yang kamu ambil membawa kamu menuju kehidupan yang lebih baik. Kalau ada mimpi yang belum tercapai, semoga suatu hari nanti kamu bisa melihatnya menjadi kenyataan.
+
+Aku juga berharap kamu selalu punya alasan untuk tersenyum, bahkan ketika keadaan sedang nggak sesuai harapan. Jangan terlalu sering menyalahkan diri sendiri, ya. Kamu nggak harus menjadi sempurna untuk bisa dihargai dan disayangi.</p>
+            <p class="fade-in-text">Maaf kalau aku belum menjadi pasangan yang sempurna. Maaf untuk perkataan atau sikap aku yang mungkin pernah membuat kamu kecewa. Aku sadar hubungan bukan hanya tentang saling menyayangi, tetapi juga tentang saling mengerti, menghargai, dan belajar memperbaiki diri.
+
+Terima kasih sudah hadir dan memberikan warna baru dalam kehidupan aku. Terima kasih sudah menjadi bagian dari cerita hidup aku sampai saat ini. Aku nggak tahu bagaimana perjalanan kita ke depannya, tetapi aku berharap kita bisa terus menjaga apa yang sudah kita punya.
+
+Semoga semua doa baik yang kamu simpan diam-diam bisa segera terwujud. Semoga kamu selalu sehat, bahagia, dipanjangkan umurnya, dilancarkan rezekinya, dimudahkan segala urusannya, dan selalu dikelilingi orang-orang yang tulus menyayangi kamu.
+
+Selamat ulang tahun, bidadari kuu. Jangan lupa bahagia, jangan pernah merasa kurang berharga, dan tetaplah menjadi diri kamu sendiri. Aku berharap bisa terus menjadi bagian dari banyak cerita indah dalam kehidupan kamu.
+
+I LOVE YOU SO MUCHHH, BIDADARI KUUUU! 🥰💕💕</p>
+        </section>
+
+        <section class="slide photo-panel show-on-scroll">
+            <h2 class="aesthetic-font" style="line-height: 0.8; color: #e6a800; top: 15px;">
+                <span class="liquid-glass-bg title-little-things">The little things</span>
+                <span class="liquid-glass-bg title-i-know">i know about you</span>
+            </h2>
+
+            <div class="solar-system">
+                <div class="orbit-track">
+
+                    <div class="planet-card item1" data-caption="Seblak">
+                        <img src="img/favorite-food.jpg" alt="Food">
+                        <p class="planet-caption">Your favorite food</p>
+                    </div>
+
+                    <div class="planet-card item2" data-caption="Moccacino">
+                        <img src="img/favorite-drink.jpg" alt="Drink">
+                        <p class="planet-caption">Your favorite drink</p>
+                    </div>
+
+                    <div class="planet-card item3" data-embed="https://open.spotify.com/embed/track/2d49CYzYWkjPawTzcR7Z5z?utm_source=generator&amp;si=d797c2a403634d17" data-caption="Abadi (Indo Version) - Dendi Nata">
+                        <img src="img/favorite-song.jpg" alt="Song">
+                        <p class="planet-caption">Your favorite song</p>
+                    </div>
+
+                    <div class="planet-card item4" data-embed="https://www.youtube.com/embed/LH3Sy5s7_XU?si=TZRlyhmpxDEh1jHb" data-caption="Nadia Omara">
+                        <img src="img/favorite-yt.jpg" alt="YouTube">
+                        <p class="planet-caption">Your favorite youtube channel</p>
+                    </div>
+
+                    <div class="planet-card item5" data-caption="Alpianl">
+                        <img src="img/favorite-person.jpg" alt="Person">
+                        <p class="planet-caption">Your favorite person</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="slide photo-panel show-on-scroll">
+            <h2 class="aesthetic-font" style="line-height: 0.8; color: #e6a800;">
+                <span class="liquid-glass-bg" style="font-size: 2em; display: inline-block; padding: 20px 35px; margin-bottom: -15px;">Core
+                    Memories</span>
+                <span class="liquid-glass-bg" style="font-size: 1.2em; display: inline-block; padding: 15px 30px; opacity: 0.9; transform: translateX(40px); color: #5a4500;">of
+                    Us</span>
+            </h2>
+            <div class="gallery-scroll">
+                <div class="scratch-card">
+                    <img src="img/1.jpg" alt="Kenangan 1">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+                <div class="scratch-card">
+                    <img src="img/2.jpg" alt="Kenangan 2">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+                <div class="scratch-card">
+                    <img src="img/3.jpg" alt="Kenangan 3">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+                <div class="scratch-card">
+                    <img src="img/4.jpg" alt="Kenangan 4">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+                <div class="scratch-card">
+                    <img src="img/5.jpg" alt="Kenangan 5">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+                <div class="scratch-card">
+                    <img src="img/6.jpg" alt="Kenangan 6">
+                    <canvas class="scratch-canvas"></canvas>
+                </div>
+            </div>
+            <p id="gallery-hint" class="gallery-hint">✨ Gosok semua fotonya dulu yaa! ✨</p>
+            <div id="gallery-slider" class="gallery-slider">
+                <div class="gallery-slider-track">
+                    <div id="gallery-slider-thumb" class="gallery-slider-thumb"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide photo-panel show-on-scroll">
+            <div class="polaroid-grid">
+                <div class="polaroid">
+                    <img src="img/you.jpg" alt="Foto Pribadi 1">
+                    <p class="caption">You</p>
+                </div>
+                <div class="polaroid">
+                    <img src="img/are.jpg" alt="Foto Pribadi 2">
+                    <p class="caption">Are</p>
+                </div>
+                <div class="polaroid">
+                    <img src="img/so.jpg" alt="Foto Pribadi 3">
+                    <p class="caption">So</p>
+                </div>
+                <div class="polaroid">
+                    <img src="img/beautifull.jpg" alt="Foto Pribadi 4">
+                    <p class="caption">Beautiful</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide glass-panel show-on-scroll">
+            <h1 class="aesthetic-font">You Are My Universe</h1>
+
+            <p class="typing-text" style="margin-top: 25px; margin-bottom: 15px;">
+                Setiap detik bersamamu adalah kebahagiaan yang tidak akan pernah aku tukar dengan apa pun. Terima kasih
+                sudah bertahan, bertumbuh, dan selalu bersinar bersamaku sejauh ini.
+            </p>
+
+            <p class="typing-text" style="margin-bottom: 40px;">
+                Di hari spesialmu ini, aku hanya ingin kamu tahu bahwa kamu sangat amat berharga. Tetaplah menjadi
+                dirimu yang hangat dan luar biasa. Aku akan selalu ada di sini, mendukung dan mencintaimu dalam setiap
+                fase hidupmu. Selamat bertambah usia, satu-satunya duniaku. 🤍
+            </p>
+
+            <hr style="border: 0; border-top: 1px solid rgba(230, 168, 0, 0.3); margin-bottom: 20px;">
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px;">Dari orang yang paling bersyukur memilikimu,
+            </p>
+            <p class="sender-name aesthetic-font baby-pink-text" style="font-size: 2rem; margin-top: 5px;">Alpian</p>
+
+            <!-- Tombol Tiup Lilin -->
+            <button id="btn-tiup-lilin" class="btn-tiup-lilin" onclick="bukaHalamanLilin()">🎂 Tiup Lilin</button>
+        </section>
+
+        <!-- HALAMAN TIUP LILIN (Full Screen Overlay) -->
+        <div id="candle-page" class="candle-page">
+            <!-- Astronaut Background -->
+            <img src="img/astronaut.png" alt="Astronaut" class="astronaut-bg">
+            <img src="img/astronaut2.png" alt="Astronaut Rocket" class="astronaut-bg-2">
+
+            <!-- Tombol Kembali -->
+            <button id="btn-back-candle" class="btn-back-candle" type="button" onclick="window.location.href='https://love.tsonit.com/hbdazizah-5pv7k'">coba pencet</button>
+
+            <div class="candle-page-content">
+                <p id="candle-message" class="candle-message"></p>
+
+                <div class="cake-container">
+                    <!-- Lilin Angka 24 -->
+                    <div class="candles-row number-candles">
+                        <!-- Angka 2 -->
+                        <div class="candle-stick number-candle">
+                            <div class="candle-flame flame-1">
+                                <div class="flame-inner"></div>
+                            </div>
+                            <div class="candle-number-body">
+                                <span class="candle-digit">2</span>
+                            </div>
+                        </div>
+                        <!-- Angka 4 -->
+                        <div class="candle-stick number-candle">
+                            <div class="candle-flame flame-2">
+                                <div class="flame-inner"></div>
+                            </div>
+                            <div class="candle-number-body">
+                                <span class="candle-digit">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kue -->
+                    <div class="cake">
+                        <div class="cake-top"></div>
+                        <div class="cake-middle"></div>
+                        <div class="cake-bottom"></div>
+                        <div class="cake-frosting">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="cake-decoration">
+                            <span>🌸</span><span>✨</span><span>🌸</span><span>✨</span><span>🌸</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress bar untuk hold -->
+                <div id="hold-progress-bar" class="hold-progress-bar">
+                    <div id="hold-progress-fill" class="hold-progress-fill"></div>
+                </div>
+
+                <button id="btn-mulai-tiup" class="btn-mulai-tiup" onclick="mulaiTiupLilin()">Mulai Tiup Lilin</button>
+                <p id="tap-hint" class="tap-hint"></p>
+            </div>
+        </div>
+
+        <div id="image-modal" onclick="tutupModal()">
+            <img id="modal-img" src="" alt="Foto Diperbesar">
+
+            <!-- [BARU] Tempat untuk memunculkan pemutar musik Spotify/YouTube -->
+            <iframe id="modal-iframe" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+            <p id="modal-caption" class="aesthetic-font"></p>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+
+
+</body></html>
