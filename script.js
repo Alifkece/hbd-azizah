@@ -375,7 +375,8 @@
                     // Delay sedikit agar digit terakhir terasa diketik
                     setTimeout(() => {
                         if (pinInput.value === SECRET_PIN) {
-                            // PIN BENAR
+                            // PIN BENAR -> masuk layar penuh
+                            masukFullscreen();
                             showPinPopup({
                                 message: 'Valid!\nLanjut ya sayang~',
                                 buttonText: 'Lanjut 💕'
@@ -412,6 +413,7 @@
 
                             // Juga lanjut saat tombol diklik
                             pinPopupClose.onclick = function () {
+                                masukFullscreen();
                                 closePinPopup();
                                 setTimeout(() => {
                                     const pinScreen = document.getElementById('pin-screen');
@@ -1466,3 +1468,49 @@ function buatConfetti() {
         initAmbientFx();
     }
 })();
+
+
+// ==========================================
+// LAYAR PENUH OTOMATIS SETELAH PIN BERHASIL
+// ==========================================
+function masukFullscreen() {
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (!req) return; // mis. iPhone Safari tidak mendukung fullscreen halaman
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+
+    const coba = function () {
+        try {
+            const p = req.call(el, { navigationUI: 'hide' });
+            if (p && typeof p.then === 'function') {
+                p.catch(function () { pasangCadanganFullscreen(); });
+            }
+        } catch (e) {
+            pasangCadanganFullscreen();
+        }
+    };
+    coba();
+}
+
+// Browser hanya mengizinkan fullscreen dari sentuhan pengguna. Jika percobaan pertama
+// ditolak (mengetik PIN di keyboard HP kadang tidak dianggap sentuhan), ulangi saat sentuhan berikutnya.
+function pasangCadanganFullscreen() {
+    if (pasangCadanganFullscreen.terpasang) return;
+    pasangCadanganFullscreen.terpasang = true;
+    const ulang = function () {
+        document.removeEventListener('pointerup', ulang, true);
+        document.removeEventListener('touchend', ulang, true);
+        document.removeEventListener('click', ulang, true);
+        pasangCadanganFullscreen.terpasang = false;
+        const el = document.documentElement;
+        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+        if (!req || document.fullscreenElement || document.webkitFullscreenElement) return;
+        try {
+            const p = req.call(el, { navigationUI: 'hide' });
+            if (p && typeof p.catch === 'function') p.catch(function () {});
+        } catch (e) {}
+    };
+    document.addEventListener('pointerup', ulang, true);
+    document.addEventListener('touchend', ulang, true);
+    document.addEventListener('click', ulang, true);
+}
